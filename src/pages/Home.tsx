@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { ItemComponenent } from "./components/ItemComponent";
-import { Item } from "./models/Item";
-import firebase from "./services/Firebase";
+import { ItemComponenent } from "../components/ItemComponent";
+import { Item } from "../models/Item";
+import firebase from "../services/Firebase";
 
-export default function Home() {
+export const Home = () => {
   const [items, setItems] = useState<Item[]>([]);
 
   firebase
@@ -17,9 +17,10 @@ export default function Home() {
 
   return (
     <div>
+      HomePage
       {items.map((item) => (
         <ItemComponenent item={item} />
       ))}
     </div>
   );
-}
+};
