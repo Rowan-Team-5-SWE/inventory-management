@@ -5,7 +5,7 @@ import { Item } from '../models/Item'
 import { Firebase } from '../services/Firebase'
 
 export const Home = () => {
-    const [items, loading, error] = useCollectionData<Item>(
+    const [items] = useCollectionData<Item>(
         Firebase.firestore().collection('items')
     )
 

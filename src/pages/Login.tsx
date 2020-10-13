@@ -4,7 +4,7 @@ import { StyledFirebaseAuth } from 'react-firebaseui'
 import { Firebase } from '../services/Firebase'
 
 export const Login = () => {
-    const [user, loading, error] = useAuthState(Firebase.auth())
+    const [user] = useAuthState(Firebase.auth())
 
     const uiConfig: firebaseui.auth.Config = {
         // Popup signin flow rather than redirect flow.
