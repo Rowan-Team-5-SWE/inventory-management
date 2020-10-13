@@ -1,8 +1,8 @@
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { ItemComponenent as ItemComponent } from "../components/ItemComponent";
+import { ItemComponent } from "../components/ItemComponent";
 import { Item } from "../models/Item";
-import {Firebase} from "../services/Firebase";
+import { Firebase } from "../services/Firebase";
 
 export const Home = () => {
   const [items, loading, error] = useCollectionData<Item>(
