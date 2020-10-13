@@ -1,8 +1,8 @@
 import React from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { ItemComponenent } from "../components/ItemComponent";
+import { ItemComponent } from "../components/ItemComponent";
 import { Item } from "../models/Item";
-import {Firebase} from "../services/Firebase";
+import { Firebase } from "../services/Firebase";
 
 export const Home = () => {
   const [items, loading, error] = useCollectionData<Item>(
@@ -12,7 +12,7 @@ export const Home = () => {
   return (
     <div>
       HomePage
-      {items && items.map((item) => <ItemComponenent item={item} />)}
+      {items && items.map((item) => <ItemComponent item={item} />)}
     </div>
   );
 };
