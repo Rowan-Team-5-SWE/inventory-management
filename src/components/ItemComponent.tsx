@@ -1,5 +1,6 @@
 import React from 'react'
 import { Item } from '../models/Item'
+import {Firebase} from "../services/Firebase"
 
 type ItemComponentProps = {
     item: Item
@@ -16,6 +17,10 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
                 <li> {`Stock: ${item.stock}`}</li>
                 <li> {`UPC: ${item.UPC}`} </li>
             </ul>
+            <button onClick={()=>{
+                if (window.confirm(`Delete ${item.name}???`)) {
+                    console.log(Firebase.firestore().collection("items").doc(item.UPC.toString()).delete());
+                }}}> Delete </button>
         </div>
     )
 }
