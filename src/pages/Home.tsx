@@ -3,7 +3,7 @@ import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { ItemComponent } from '../components/ItemComponent'
 import { Item } from '../models/Item'
 import { Firebase } from '../services/Firebase'
-import { AddItemForm } from "../components/AddItemForm";
+import { AddItemForm } from '../components/AddItemForm'
 
 export const Home = () => {
     const [items] = useCollectionData<Item>(
@@ -14,7 +14,7 @@ export const Home = () => {
         <div>
             HomePage
             {items && items.map((item) => <ItemComponent item={item} />)}
-            <AddItemForm/>
+            <AddItemForm />
         </div>
     )
 }
