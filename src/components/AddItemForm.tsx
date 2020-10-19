@@ -15,8 +15,7 @@ export const AddItemForm = () => {
 
         Firebase.firestore()
             .collection('items')
-            .doc(UPC)
-            .set({
+            .add({
                 name,
                 price,
                 cost,

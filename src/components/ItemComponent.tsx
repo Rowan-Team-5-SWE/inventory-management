@@ -20,10 +20,11 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
             <button
                 onClick={() => {
                     if (window.confirm(`Delete ${item.name}???`)) {
+                        
                         console.log(
                             Firebase.firestore()
                                 .collection('items')
-                                .doc(item.UPC.toString())
+                                .doc(item.id)
                                 .delete()
                         )
                     }
