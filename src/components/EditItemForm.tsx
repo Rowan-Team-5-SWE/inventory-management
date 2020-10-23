@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import { Firebase } from '../services/Firebase'
 import { Item } from '../models/Item'
 
-
 type EditItemFormProps = {
     item: Item
     setEdit: React.Dispatch<React.SetStateAction<boolean>>
@@ -20,20 +19,16 @@ export const EditItemForm = ({ item, setEdit }: EditItemFormProps) => {
     function onSumbit(e: { preventDefault: () => void }) {
         e.preventDefault()
 
-        Firebase.firestore()
-            .collection('items')
-            .doc(item.id)
-            .set({
-                name,
-                price,
-                cost,
-                stock,
-                description,
-                UPC,
-            }) 
-        
+        Firebase.firestore().collection('items').doc(item.id).set({
+            name,
+            price,
+            cost,
+            stock,
+            description,
+            UPC,
+        })
+
         setEdit(false)
-    
     }
 
     return (
@@ -57,7 +52,9 @@ export const EditItemForm = ({ item, setEdit }: EditItemFormProps) => {
                     <input
                         type="number"
                         value={price}
-                        onChange={(e) => setprice(parseInt(e.currentTarget.value))}
+                        onChange={(e) =>
+                            setprice(parseFloat(e.currentTarget.value))
+                        }
                     />
                 </label>
             </div>
@@ -68,7 +65,9 @@ export const EditItemForm = ({ item, setEdit }: EditItemFormProps) => {
                     <input
                         type="number"
                         value={cost}
-                        onChange={(e) => setcost(parseInt(e.currentTarget.value))}
+                        onChange={(e) =>
+                            setcost(parseFloat(e.currentTarget.value))
+                        }
                     />
                 </label>
             </div>
@@ -90,7 +89,9 @@ export const EditItemForm = ({ item, setEdit }: EditItemFormProps) => {
                     <input
                         type="number"
                         value={stock}
-                        onChange={(e) => setstock(parseInt(e.currentTarget.value))}
+                        onChange={(e) =>
+                            setstock(parseInt(e.currentTarget.value))
+                        }
                     />
                 </label>
             </div>
@@ -101,12 +102,16 @@ export const EditItemForm = ({ item, setEdit }: EditItemFormProps) => {
                     <input
                         type="number"
                         value={UPC}
-                        onChange={(e) => setupc(parseInt(e.currentTarget.value))}
+                        onChange={(e) =>
+                            setupc(parseInt(e.currentTarget.value))
+                        }
                     />
                 </label>
             </div>
             <button> Save Changes</button>
-            <button type='button' onClick={()=>setEdit(false)}>Cancel</button>
+            <button type="button" onClick={() => setEdit(false)}>
+                Cancel
+            </button>
         </form>
     )
 }
