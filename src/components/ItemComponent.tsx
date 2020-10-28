@@ -2,17 +2,16 @@ import React, {useState} from 'react'
 import { Item } from '../models/Item'
 import { Firebase } from '../services/Firebase'
 import { EditItemForm } from './EditItemForm'
+import { UpdateStockForm } from './UpdateStockForm'
 
 type ItemComponentProps = {
     item: Item
     
 }
 
-
-
-
 export const ItemComponent = ({ item }: ItemComponentProps) => {
     const [edit, setEdit] = useState(false);
+    const [update, setUpdate] = useState(false);
 
     if(edit){
 
@@ -22,7 +21,13 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
             
         )
 
-    } else {
+    }if(update){
+            return (
+            <UpdateStockForm item={item} setUpdate={setUpdate}/>
+
+            
+        )
+    }else {
         return (    
                 <div>
                     <b>{`${item.name}`}</b>
@@ -30,7 +35,7 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
                         <li> {`Price: ${item.price}`} </li>
                         <li> {`Cost: ${item.cost}`} </li>
                         <li> {`Description: ${item.description}`} </li>
-                        <li> {`Stock: ${item.stock}`}</li>
+                        <li> {`Stock: ${item.stock} `} <button onClick={() => {setUpdate(true);}}> Update Quantity </button></li> 
                         <li> {`UPC: ${item.UPC}`} </li>
                     </ul>
                     <button
