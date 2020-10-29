@@ -2,18 +2,19 @@ import React, { useState } from 'react'
 import { Firebase } from '../services/Firebase'
 import { Item } from '../models/Item'
 
+
 type UpdateStockFormProps = {
     item: Item
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export const UpdateStockForm = ({ item, setUpdate }: UpdateStockFormProps) =>{
-    const [name, setname] = useState(item.name)
-    const [price, setprice] = useState(item.price)
-    const [cost, setcost] = useState(item.cost)
+    const name= item.name
+    const price = item.price
+    const cost = item.cost
     const [stock, setstock] = useState(item.stock)
-    const [description, setdescription] = useState(item.description)
-    const [UPC, setupc] = useState(item.UPC)
+    const description =item.description
+    const UPC = item.UPC
 
     function onSumbit(e: { preventDefault: () => void }) {
         e.preventDefault()
@@ -42,12 +43,13 @@ export const UpdateStockForm = ({ item, setUpdate }: UpdateStockFormProps) =>{
                     <li> 
                         <label>
                             {' '}
-                            Quantity{' '}
+                            Stock: {item.stock} {' '}
                             <input
                                 type="number"
                                 value={stock}
                                 onChange={(e) => setstock(parseInt(e.currentTarget.value))}
                             />
+                            
                         </label>
                     </li>
                     <li> {`UPC: ${item.UPC}`} </li>
