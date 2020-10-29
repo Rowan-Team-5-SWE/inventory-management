@@ -2,18 +2,17 @@ import React, { useState } from 'react'
 import { Firebase } from '../services/Firebase'
 import { Item } from '../models/Item'
 
-
 type UpdateStockFormProps = {
     item: Item
     setUpdate: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-export const UpdateStockForm = ({ item, setUpdate }: UpdateStockFormProps) =>{
-    const name= item.name
+export const UpdateStockForm = ({ item, setUpdate }: UpdateStockFormProps) => {
+    const name = item.name
     const price = item.price
     const cost = item.cost
     const [stock, setstock] = useState(item.stock)
-    const description =item.description
+    const description = item.description
     const UPC = item.UPC
 
     function onSumbit(e: { preventDefault: () => void }) {
@@ -26,12 +25,11 @@ export const UpdateStockForm = ({ item, setUpdate }: UpdateStockFormProps) =>{
             stock,
             description,
             UPC,
-         
         })
 
         setUpdate(false)
     }
-        return(
+    return (
         <form id={item.id} onSubmit={onSumbit}>
             <div>
                 <b>Editing {item.name} stock</b>
@@ -40,24 +38,28 @@ export const UpdateStockForm = ({ item, setUpdate }: UpdateStockFormProps) =>{
                     <li> {`Price: ${item.price}`} </li>
                     <li> {`Cost: ${item.cost}`} </li>
                     <li> {`Description: ${item.description}`} </li>
-                    <li> 
+                    <li>
                         <label>
                             {' '}
-                            Stock: {item.stock} {' '}
+                            Stock: {item.stock}{' '}
                             <input
                                 type="number"
                                 value={stock}
-                                onChange={(e) => setstock(parseInt(e.currentTarget.value))}
+                                onChange={(e) =>
+                                    setstock(parseInt(e.currentTarget.value))
+                                }
                             />
-                            
                         </label>
                     </li>
                     <li> {`UPC: ${item.UPC}`} </li>
                 </ul>
-            </div> 
-            
+            </div>
+
             <button>Confirm</button>
-            <button type="button" onClick={() => setUpdate(false)}> Cancel </button> 
+            <button type="button" onClick={() => setUpdate(false)}>
+                {' '}
+                Cancel{' '}
+            </button>
         </form>
-        )
-    }
+    )
+}
