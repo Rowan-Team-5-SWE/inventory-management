@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { Form, Input, InputNumber, Popconfirm, Table } from 'antd'
 import React, { useState } from 'react'
 import { Item } from '../models/Item'
