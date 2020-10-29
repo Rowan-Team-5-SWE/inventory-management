@@ -7,7 +7,8 @@ import { AddItemForm } from '../components/AddItemForm'
 
 export const Home = () => {
     const [items] = useCollectionData<Item>(
-        Firebase.firestore().collection('items'), {idField:'id'}
+        Firebase.firestore().collection('items'),
+        { idField: 'id' }
     )
 
     return (
