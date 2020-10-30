@@ -24,7 +24,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "test": "react-scripts test",
+        "test": "react-scripts test --detectOpenHandles --forceExit",
         "eject": "react-scripts eject",
         "deploy": "npm run build && firebase deploy",
         "lint": "eslint --ext js,jsx,ts,tsx src",
