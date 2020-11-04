@@ -5,6 +5,8 @@ import React from 'react'
 import { Item } from '../models/Item'
 import { CartItem } from '../models/CartItem'
 import { Table } from 'antd'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { Firebase } from '../services/Firebase'
 
 type Props = {
     items: Item[] | undefined
@@ -12,6 +14,9 @@ type Props = {
 }
 
 export const CartComponent = (props: Props) => {
+    const [user] = useAuthState(Firebase.auth())
+    const email: string = user?.email || 'blank'
+
     function changeFunction(cartItem: CartItem) {
         console.log(props.items)
         console.log(props.cartItems)
@@ -27,6 +32,15 @@ export const CartComponent = (props: Props) => {
     // function find(item: Item, id: string) {
     //     return (item.id = id)
     // }
+
+    function deleteItem(cartItem: CartItem) {
+        Firebase.firestore()
+            .collection('cart')
+            .doc(email)
+            .collection('cartItems')
+            .doc(cartItem.itemID)
+            .delete()
+    }
 
     props.cartItems?.forEach((CartItem) => changeFunction(CartItem))
     const columns = [
@@ -56,6 +70,17 @@ export const CartComponent = (props: Props) => {
         {
             title: 'operation',
             dataIndex: 'operation',
+            render: (_: any, cartItem: CartItem) => {
+                return (
+                    <a
+                        onClick={() => {
+                            deleteItem(cartItem)
+                        }}
+                    >
+                        Delete
+                    </a>
+                )
+            },
         },
     ]
 
