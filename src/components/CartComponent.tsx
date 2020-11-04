@@ -19,9 +19,10 @@ export const CartComponent = (props: Props) => {
             (item) => item.id === cartItem.itemID
         )
 
-        cartItem.name = matchingItem?.name ?? 'no data'
+        cartItem.name = matchingItem?.name ?? 'Item does not exist'
         cartItem.price = matchingItem?.price ?? -1
-        cartItem.description = matchingItem?.description ?? 'no data'
+        cartItem.description =
+            matchingItem?.description ?? 'Please remove from cart'
     }
     // function find(item: Item, id: string) {
     //     return (item.id = id)
@@ -30,19 +31,16 @@ export const CartComponent = (props: Props) => {
     props.cartItems?.forEach((CartItem) => changeFunction(CartItem))
     const columns = [
         {
-            title: 'itemID',
-            dataIndex: 'itemID',
-        },
-        {
-            title: 'qty',
-            dataIndex: 'quantity',
-        },
-        {
             title: 'name',
             dataIndex: 'name',
             editable: true,
             inputType: 'string',
         },
+        {
+            title: 'qty',
+            dataIndex: 'quantity',
+        },
+
         {
             title: 'price',
             dataIndex: 'price',

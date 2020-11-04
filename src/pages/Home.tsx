@@ -7,17 +7,23 @@ import { CartItem } from '../models/CartItem'
 import { Firebase } from '../services/Firebase'
 import { AddItemForm } from '../components/AddItemForm'
 import { EditableTable } from '../components/EditableTable'
+import { useAuthState } from 'react-firebase-hooks/auth'
 
 export const Home = () => {
+    const [user] = useAuthState(Firebase.auth())
+
     const [items] = useCollectionData<Item>(
         Firebase.firestore().collection('items'),
         { idField: 'id' }
     )
+
+    const email: string = user?.email || 'blank'
     const [cartItems] = useCollectionData<CartItem>(
         Firebase.firestore()
             .collection('cart')
-            .doc('jaltmann89@gmail.com')
-            .collection('cartItems')
+            .doc(email)
+            .collection('cartItems'),
+        { idField: 'itemID' }
     )
 
     return (
