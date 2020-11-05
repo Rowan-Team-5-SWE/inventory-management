@@ -3,7 +3,6 @@ import { Item } from '../models/Item'
 import { Firebase } from '../services/Firebase'
 import { EditItemForm } from './EditItemForm'
 import { UpdateStockForm } from './UpdateStockForm'
-import { useAuthState } from 'react-firebase-hooks/auth'
 
 type ItemComponentProps = {
     item: Item
@@ -12,8 +11,6 @@ type ItemComponentProps = {
 export const ItemComponent = ({ item }: ItemComponentProps) => {
     const [edit, setEdit] = useState(false)
     const [update, setUpdate] = useState(false)
-    const [user] = useAuthState(Firebase.auth())
-    const email: string = user?.email || 'blank'
 
     function incrementStock(e: { preventDefault: () => void }) {
         e.preventDefault()
@@ -87,23 +84,6 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
                     {' '}
                     Edit{' '}
                 </button>
-
-                {user ? (
-                    <button
-                        onClick={() => {
-                            Firebase.firestore()
-                                .collection('cart')
-                                .doc(email)
-                                .collection('cartItems')
-                                .doc(item.id)
-                                .set({ quantity: 1 })
-                        }}
-                    >
-                        Add to Cart
-                    </button>
-                ) : (
-                    <div></div>
-                )}
             </div>
         )
     }
