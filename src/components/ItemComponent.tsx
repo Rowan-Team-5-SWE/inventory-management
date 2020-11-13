@@ -88,7 +88,7 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
                     Edit{' '}
                 </button>
 
-                {user ? (
+                {user && item.stock > 0 ? (
                     <button
                         onClick={() => {
                             Firebase.firestore()

@@ -4,4 +4,5 @@ export type CartItem = {
     price: number
     description: string
     name: string
+    stock: number
 }
