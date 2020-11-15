@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 
-import React from 'react'
+import React, { useState } from 'react'
+import Modal from 'react-modal'
 import { Item } from '../models/Item'
 import { CartItem } from '../models/CartItem'
 import { Table, Input } from 'antd'

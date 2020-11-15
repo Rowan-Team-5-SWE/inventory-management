@@ -8,6 +8,7 @@ import { Firebase } from '../services/Firebase'
 import { AddItemForm } from '../components/AddItemForm'
 import { EditableTable } from '../components/EditableTable'
 import { useAuthState } from 'react-firebase-hooks/auth'
+import { FinalizeOrderForm } from '../components/FinalizeOrderForm'
 
 export const Home = () => {
     const [user] = useAuthState(Firebase.auth())
@@ -33,6 +34,7 @@ export const Home = () => {
             {items && items.map((item) => <ItemComponent item={item} />)}
             <AddItemForm />
             <CartComponent cartItems={cartItems} items={items} />
+            <FinalizeOrderForm />
         </div>
     )
 }
