@@ -33,7 +33,9 @@ export const Home = () => {
             <EditableTable items={items} />
             {items && items.map((item) => <ItemComponent item={item} />)}
             <AddItemForm />
+            <h3>Cart</h3>
             <CartComponent cartItems={cartItems} items={items} />
+            <h3>Past Orders</h3>
             <NestedTable />
         </div>
     )

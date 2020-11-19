@@ -1,7 +1,8 @@
 export type Order = {
     address: string
-    completed: boolean
+    status: string
     time: string
     user: string
     orderID: string
+    key: string
 }

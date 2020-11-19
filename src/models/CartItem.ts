@@ -5,4 +5,5 @@ export type CartItem = {
     description: string
     name: string
     stock: number
+    orderID: string
 }

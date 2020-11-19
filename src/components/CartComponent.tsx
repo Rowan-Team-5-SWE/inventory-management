@@ -7,6 +7,7 @@ import { CartItem } from '../models/CartItem'
 import { Table, Input } from 'antd'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Firebase } from '../services/Firebase'
+import { FinalizeOrderForm } from '../components/FinalizeOrderForm'
 
 type Props = {
     items: Item[] | undefined
@@ -142,13 +143,15 @@ export const CartComponent = (props: Props) => {
             Firebase.firestore()
                 .collection('orders')
                 .doc(orderID)
-                .collection('items')
+                .collection('orderItems')
                 .doc(cartItem.itemID)
                 .set({
                     name: cartItem.name,
                     quantity: cartItem.quantity,
                     description: cartItem.description,
                     price: cartItem.price,
+                    orderID: orderID,
+                    user: email,
                 })
             Firebase.firestore()
                 .collection('cart')
@@ -180,17 +183,11 @@ export const CartComponent = (props: Props) => {
                     user: email,
                     time: orderTimeString,
                     address: inputAddress,
-                    completed: false,
+                    status: 'pending',
                 })
             }
         }
     }
-
-    // let addressInput = React.createRef()
-
-    // function handleClick(){
-    //     inputAddress = addressInput.current
-    // }
 
     return (
         <div>
@@ -198,21 +195,17 @@ export const CartComponent = (props: Props) => {
             <div
                 style={{
                     paddingLeft: '5%',
-                    width: '40%',
+                    width: '80%',
                     alignItems: 'center',
                     display: 'flex',
                     justifyContent: 'center',
                 }}
             >
-                {/* <TextArea
-                    placeholder="Mailing Address"
-                    rows={3}
-                    allowClear={true}
-                ></TextArea> */}
+                <FinalizeOrderForm finalizeButton={finalizeButton} />
                 <div>
-                    <button onClick={() => finalizeButton('')}>
+                    {/* <button onClick={() => finalizeButton('')}>
                         Finalize Cart
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </div>
