@@ -4,7 +4,7 @@
 import React from 'react'
 import { Item } from '../models/Item'
 import { CartItem } from '../models/CartItem'
-import { Table, Input } from 'antd'
+import { Table } from 'antd'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Firebase } from '../services/Firebase'
 import { FinalizeOrderForm } from '../components/FinalizeOrderForm'
@@ -29,7 +29,12 @@ export const CartComponent = (props: Props) => {
             matchingItem?.description ?? 'Please remove from cart'
         cartItem.stock = matchingItem?.stock ?? -1
         if (cartItem.stock < cartItem.quantity) {
-            cartItem.quantity = cartItem.stock
+            Firebase.firestore()
+                .collection('cart')
+                .doc(email)
+                .collection('cartItems')
+                .doc(cartItem.itemID)
+                .update({ quantity: cartItem.stock })
         }
         if (cartItem.stock < 0) {
             deleteItem(cartItem)
@@ -64,6 +69,64 @@ export const CartComponent = (props: Props) => {
                 .collection('cartItems')
                 .doc(cartItem.itemID)
                 .update({ quantity: --cartItem.quantity })
+        }
+    }
+
+    function finalizeCartItem(cartItem: CartItem, orderID: string) {
+        const newInventoryQty = cartItem.stock - cartItem.quantity
+        if (cartItem.stock && newInventoryQty >= 0) {
+            Firebase.firestore()
+                .collection('items')
+                .doc(cartItem.itemID)
+                .update({
+                    stock: newInventoryQty,
+                })
+            Firebase.firestore()
+                .collection('orders')
+                .doc(orderID)
+                .collection('orderItems')
+                .doc(cartItem.itemID)
+                .set({
+                    name: cartItem.name,
+                    quantity: cartItem.quantity,
+                    description: cartItem.description,
+                    price: cartItem.price,
+                    orderID: orderID,
+                    user: email,
+                })
+            Firebase.firestore()
+                .collection('cart')
+                .doc(email)
+                .collection('cartItems')
+                .doc(cartItem.itemID)
+                .delete()
+        }
+    }
+
+    function finalizeButton(inputAddress: string) {
+        if (Array.isArray(props.cartItems) && props.cartItems.length) {
+            let orderTimeString: string = new Date().toDateString().substr(4)
+            orderTimeString = orderTimeString.concat(
+                ' ' + new Date().toLocaleTimeString('en-US')
+            )
+
+            const orderID: string = email.concat(orderTimeString)
+            let totalQty = 0
+            props.cartItems.forEach(
+                (cartItem) => (totalQty += cartItem.quantity)
+            )
+
+            if (totalQty > 0) {
+                props.cartItems?.forEach((cartItem) =>
+                    finalizeCartItem(cartItem, orderID)
+                )
+                Firebase.firestore().collection('orders').doc(orderID).set({
+                    user: email,
+                    time: orderTimeString,
+                    address: inputAddress,
+                    status: 'pending',
+                })
+            }
         }
     }
 
@@ -126,68 +189,6 @@ export const CartComponent = (props: Props) => {
             },
         },
     ]
-
-    /** Text box code */
-
-    const { TextArea } = Input
-
-    function finalizeCartItem(cartItem: CartItem, orderID: string) {
-        const newInventoryQty = cartItem.stock - cartItem.quantity
-        if (cartItem.stock && newInventoryQty >= 0) {
-            Firebase.firestore()
-                .collection('items')
-                .doc(cartItem.itemID)
-                .update({
-                    stock: newInventoryQty,
-                })
-            Firebase.firestore()
-                .collection('orders')
-                .doc(orderID)
-                .collection('orderItems')
-                .doc(cartItem.itemID)
-                .set({
-                    name: cartItem.name,
-                    quantity: cartItem.quantity,
-                    description: cartItem.description,
-                    price: cartItem.price,
-                    orderID: orderID,
-                    user: email,
-                })
-            Firebase.firestore()
-                .collection('cart')
-                .doc(email)
-                .collection('cartItems')
-                .doc(cartItem.itemID)
-                .delete()
-        }
-    }
-
-    function finalizeButton(inputAddress: string) {
-        if (Array.isArray(props.cartItems) && props.cartItems.length) {
-            let orderTimeString: string = new Date().toDateString().substr(4)
-            orderTimeString = orderTimeString.concat(
-                ' ' + new Date().toLocaleTimeString('en-US')
-            )
-
-            const orderID: string = email.concat(orderTimeString)
-            let totalQty = 0
-            props.cartItems.forEach(
-                (cartItem) => (totalQty += cartItem.quantity)
-            )
-
-            if (totalQty > 0) {
-                props.cartItems?.forEach((cartItem) =>
-                    finalizeCartItem(cartItem, orderID)
-                )
-                Firebase.firestore().collection('orders').doc(orderID).set({
-                    user: email,
-                    time: orderTimeString,
-                    address: inputAddress,
-                    status: 'pending',
-                })
-            }
-        }
-    }
 
     return (
         <div>

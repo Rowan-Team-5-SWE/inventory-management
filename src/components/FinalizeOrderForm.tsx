@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, Button, Select, InputNumber } from 'antd'
+import { Form, Input, Button, Select } from 'antd'
 import React from 'react'
 
 const { Option } = Select

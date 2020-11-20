@@ -1,5 +1,4 @@
-import { Table, Badge, Menu, Dropdown, Space } from 'antd'
-import { DownOutlined } from '@ant-design/icons'
+import { Table } from 'antd'
 import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
