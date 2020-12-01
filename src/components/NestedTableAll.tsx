@@ -1,11 +1,12 @@
-import { Table, Popconfirm } from 'antd'
-import React, { ReactText } from 'react'
+import { Table, Popconfirm, Checkbox } from 'antd'
+import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
 import { Firebase } from '../services/Firebase'
 import { Order } from '../models/Order'
 import { CartItem } from '../models/CartItem'
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 
 export const NestedTableAll = () => {
     const [user] = useAuthState(Firebase.auth())
@@ -16,7 +17,6 @@ export const NestedTableAll = () => {
     )
 
     type ListSort = 'descend' | 'ascend' | null | undefined
-    type FilteredValue = ReactText[] | null | undefined
 
     const [orderData] = useCollectionData<CartItem>(
         Firebase.firestore().collectionGroup('orderItems')
@@ -54,6 +54,13 @@ export const NestedTableAll = () => {
                 title: 'quantity',
                 dataIndex: 'quantity',
                 key: 'quantity',
+            },
+            {
+                title: 'checklist',
+                dataindex: 'checklist',
+                render: (_: any, item: CartItem) => {
+                    return <Checkbox></Checkbox>
+                },
             },
         ]
 
@@ -112,7 +119,7 @@ export const NestedTableAll = () => {
                     ? (isWorkingOn = -2)
                     : (isWorkingOn = order.employee.localeCompare(email))
                 return order.status === 'completed' ? (
-                    <a></a>
+                    <div></div>
                 ) : isWorkingOn !== 0 ? (
                     <span>
                         <a onClick={() => claimOrder(order)}> Work On</a>
