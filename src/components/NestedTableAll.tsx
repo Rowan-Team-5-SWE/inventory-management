@@ -37,6 +37,13 @@ export const NestedTableAll = () => {
             .set({ status: 'completed' }, { merge: true })
     }
 
+    const releaseOrder = (order: Order) => {
+        Firebase.firestore()
+            .collection('orders')
+            .doc(order.key)
+            .set({ employee: '' }, { merge: true })
+    }
+
     const expandedRowRender = (record: Order) => {
         const columns = [
             { title: 'name', dataIndex: 'name', key: 'name' },
@@ -143,6 +150,9 @@ export const NestedTableAll = () => {
                         >
                             <a>Finalize</a>
                         </Popconfirm>
+                        <a onClick={() => releaseOrder(order)}>
+                            &nbsp; Release
+                        </a>
                     </span>
                 )
             },
@@ -155,6 +165,7 @@ export const NestedTableAll = () => {
             columns={columns}
             expandable={{ expandedRowRender }}
             dataSource={orders}
+            expandIconColumnIndex={5}
         />
     )
 }
