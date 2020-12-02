@@ -58,8 +58,19 @@ export const NestedTableAll = () => {
             {
                 title: 'checklist',
                 dataindex: 'checklist',
-                render: (_: any, item: CartItem) => {
-                    return <Checkbox></Checkbox>
+                render: (_: any, cartItem: CartItem) => {
+                    console.log(record)
+                    let isWorkingOn: number
+                    record?.employee == null
+                        ? (isWorkingOn = -2)
+                        : (isWorkingOn = record.employee.localeCompare(email))
+                    return record?.status === 'completed' ? (
+                        <></>
+                    ) : isWorkingOn !== 0 ? (
+                        <></>
+                    ) : (
+                        <Checkbox></Checkbox>
+                    )
                 },
             },
         ]
