@@ -9,6 +9,7 @@ export const AddItemForm = () => {
     const [stock, setstock] = useState('')
     const [description, setdescription] = useState('')
     const [UPC, setupc] = useState('')
+    const [numSold, setNumSold] = useState(0)
 
     function onSumbit(e: { preventDefault: () => void }) {
         e.preventDefault()
@@ -22,6 +23,7 @@ export const AddItemForm = () => {
                 stock,
                 description,
                 UPC,
+                numSold,
             })
             .then(() => {
                 setname('')
