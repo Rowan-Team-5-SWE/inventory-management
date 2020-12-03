@@ -38,6 +38,7 @@ export const Home = () => {
             <CartComponent cartItems={cartItems} items={items} />
             <h3>Past Orders</h3>
             <NestedTable />
+            <h3>Order Fulfillment View</h3>
             <NestedTableAll />
         </div>
     )

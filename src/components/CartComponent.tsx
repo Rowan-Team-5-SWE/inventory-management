@@ -74,12 +74,16 @@ export const CartComponent = (props: Props) => {
 
     function finalizeCartItem(cartItem: CartItem, orderID: string) {
         const newInventoryQty = cartItem.stock - cartItem.quantity
+        const increaseBy = Firebase.firestore.FieldValue.increment(
+            cartItem.quantity
+        )
         if (cartItem.stock && newInventoryQty >= 0) {
             Firebase.firestore()
                 .collection('items')
                 .doc(cartItem.itemID)
                 .update({
                     stock: newInventoryQty,
+                    numSold: increaseBy,
                 })
             Firebase.firestore()
                 .collection('orders')
