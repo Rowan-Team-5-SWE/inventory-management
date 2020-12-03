@@ -115,6 +115,12 @@ export const EditableTable = ({ items }: Props) => {
             inputType: 'number',
         },
         {
+            title: 'total sold',
+            dataIndex: 'numSold',
+            editable: true,
+            inputType: 'number',
+        },
+        {
             title: 'UPC',
             dataIndex: 'UPC',
             editable: true,
