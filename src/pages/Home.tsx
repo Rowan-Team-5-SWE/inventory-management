@@ -9,6 +9,7 @@ import { AddItemForm } from '../components/AddItemForm'
 import { EditableTable } from '../components/EditableTable'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { NestedTable } from '../components/NestedTable'
+import { NestedTableAll } from '../components/NestedTableAll'
 
 export const Home = () => {
     const [user] = useAuthState(Firebase.auth())
@@ -37,6 +38,7 @@ export const Home = () => {
             <CartComponent cartItems={cartItems} items={items} />
             <h3>Past Orders</h3>
             <NestedTable />
+            <NestedTableAll />
         </div>
     )
 }

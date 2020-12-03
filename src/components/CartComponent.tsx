@@ -203,11 +203,6 @@ export const CartComponent = (props: Props) => {
                 }}
             >
                 <FinalizeOrderForm finalizeButton={finalizeButton} />
-                <div>
-                    {/* <button onClick={() => finalizeButton('')}>
-                        Finalize Cart
-                    </button> */}
-                </div>
             </div>
         </div>
     )

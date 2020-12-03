@@ -5,4 +5,5 @@ export type Order = {
     user: string
     orderID: string
     key: string
+    employee: string
 }
