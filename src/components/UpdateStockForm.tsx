@@ -18,7 +18,7 @@ export const UpdateStockForm = ({ item, setUpdate }: UpdateStockFormProps) => {
     function onSumbit(e: { preventDefault: () => void }) {
         e.preventDefault()
 
-        Firebase.firestore().collection('items').doc(item.id).set({
+        Firebase.firestore().collection('items').doc(item.key).set({
             name,
             price,
             cost,
@@ -30,7 +30,7 @@ export const UpdateStockForm = ({ item, setUpdate }: UpdateStockFormProps) => {
         setUpdate(false)
     }
     return (
-        <form id={item.id} onSubmit={onSumbit}>
+        <form id={item.key} onSubmit={onSumbit}>
             <div>
                 <b>Editing {item.name} stock</b>
 

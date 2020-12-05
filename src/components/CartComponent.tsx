@@ -20,7 +20,7 @@ export const CartComponent = (props: Props) => {
 
     function changeFunction(cartItem: CartItem) {
         const matchingItem = props.items?.find(
-            (item) => item.id === cartItem.itemID
+            (item) => item.key === cartItem.itemID
         )
 
         cartItem.name = matchingItem?.name ?? 'Item does not exist'
