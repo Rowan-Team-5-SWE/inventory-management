@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import {
     Button,
     Form,
@@ -24,13 +25,24 @@ interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
     children: React.ReactNode
 }
 
-const getColumnSearchProps = (dataIndex: string, searchInput: any) => ({
-    filterDropdown: (
-        setSelectedKeys: any,
-        selectedKeys: any,
-        confirm: any,
-        clearFilters: any
-    ) => (
+const state = {
+    searchText: '',
+    searchedColumn: '',
+}
+
+let searchInput: Input | null
+
+const getColumnSearchProps = (dataIndex: string) => ({
+    filterDropdown: ({
+        //@ts-ignore
+        setSelectedKeys,
+        //@ts-ignore
+        selectedKeys,
+        //@ts-ignore
+        confirm,
+        //@ts-ignore
+        clearFilters,
+    }) => (
         <div style={{ padding: 8 }}>
             <Input
                 ref={(node) => {
@@ -78,24 +90,18 @@ const getColumnSearchProps = (dataIndex: string, searchInput: any) => ({
                   .toLowerCase()
                   .includes(value.toLowerCase())
             : '',
-    onFilterDropdownVisibleChange: (visible: boolean) => {
-        if (visible) {
-            setTimeout(() => searchInput.select(), 100)
-        }
-    },
+    render: (text: any) => text,
 })
 
 const handleSearch = (selectedKeys: any, confirm: any, dataIndex: any) => {
     confirm()
-    return {
-        searchText: selectedKeys[0],
-        searchedColumn: dataIndex,
-    }
+    state.searchText = selectedKeys[0]
+    state.searchedColumn = dataIndex
 }
 
 const handleReset = (clearFilters: any) => {
     clearFilters()
-    return { searchText: '' }
+    state.searchText = ''
 }
 
 const EditableCell: React.FC<EditableCellProps> = ({
@@ -176,9 +182,10 @@ export const EditableTable = ({ items }: Props) => {
         {
             title: 'name',
             dataIndex: 'name',
+            key: 'name',
             editable: true,
             inputType: 'string',
-            ...getColumnSearchProps('name', null),
+            ...getColumnSearchProps('name'),
         },
         {
             title: 'price',
@@ -201,12 +208,14 @@ export const EditableTable = ({ items }: Props) => {
         {
             title: 'UPC',
             dataIndex: 'UPC',
+            key: 'UPC',
             editable: true,
             inputType: 'number',
         },
         {
             title: 'description',
             dataIndex: 'description',
+            key: 'description',
             editable: true,
             inputType: 'string',
         },
