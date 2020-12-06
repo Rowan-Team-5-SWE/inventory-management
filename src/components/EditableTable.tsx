@@ -211,6 +211,7 @@ export const EditableTable = ({ items }: Props) => {
             key: 'UPC',
             editable: true,
             inputType: 'number',
+            ...getColumnSearchProps('UPC'),
         },
         {
             title: 'description',
@@ -218,6 +219,7 @@ export const EditableTable = ({ items }: Props) => {
             key: 'description',
             editable: true,
             inputType: 'string',
+            ...getColumnSearchProps('description'),
         },
         {
             title: 'operation',
