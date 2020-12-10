@@ -10,9 +10,11 @@ import { EditableTable } from '../components/EditableTable'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { NestedTable } from '../components/NestedTable'
 import { NestedTableAll } from '../components/NestedTableAll'
+import { usePermissions } from '../hooks/usePermissions'
 
 export const Home = () => {
     const [user] = useAuthState(Firebase.auth())
+    const { isLoggedIn, isAdmin } = usePermissions()
 
     const [items] = useCollectionData<Item>(
         Firebase.firestore().collection('items'),
@@ -31,6 +33,10 @@ export const Home = () => {
     return (
         <div>
             HomePage
+            <br />
+            Logged in: {isLoggedIn.toString()}
+            <br />
+            Is Admin: {isAdmin.toString()}
             <EditableTable items={items} />
             {items && items.map((item) => <ItemComponent item={item} />)}
             <AddItemForm />
