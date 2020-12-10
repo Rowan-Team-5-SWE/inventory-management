@@ -9,7 +9,7 @@ export const AddItemForm = () => {
     const [stock, setstock] = useState('')
     const [description, setdescription] = useState('')
     const [UPC, setupc] = useState('')
-    const [numSold, setNumSold] = useState(0)
+    const [numSold] = useState(0)
 
     function onSumbit(e: { preventDefault: () => void }) {
         e.preventDefault()
