@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { StyledFirebaseAuth } from 'react-firebaseui'
 import { Firebase } from '../services/Firebase'
@@ -6,14 +6,29 @@ import { Firebase } from '../services/Firebase'
 export const Login = () => {
     const [user] = useAuthState(Firebase.auth())
 
+    useEffect(() => {
+        if (user?.email == null) return
+
+        const email = user.email
+
+        Firebase.firestore()
+            .collection('users')
+            .doc(email)
+            .set(
+                {
+                    admin: email?.split('@')[1].includes('rowan'),
+                },
+                {
+                    merge: true,
+                }
+            )
+    }, [user])
+
     const uiConfig: firebaseui.auth.Config = {
         // Popup signin flow rather than redirect flow.
         signInFlow: 'popup',
-        // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-        callbacks: {
-            signInSuccessWithAuthResult: () => false,
-        },
-        // We will display Google and Facebook as auth providers.
+
+        // We will display Google as auth provider.
         signInOptions: [Firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     }
 
