@@ -19,7 +19,7 @@ export const EditItemForm = ({ item, setEdit }: EditItemFormProps) => {
     function onSumbit(e: { preventDefault: () => void }) {
         e.preventDefault()
 
-        Firebase.firestore().collection('items').doc(item.id).set({
+        Firebase.firestore().collection('items').doc(item.key).set({
             name,
             price,
             cost,
@@ -32,7 +32,7 @@ export const EditItemForm = ({ item, setEdit }: EditItemFormProps) => {
     }
 
     return (
-        <form id={item.id} onSubmit={onSumbit}>
+        <form id={item.key} onSubmit={onSumbit}>
             <h4>Add Item</h4>
             <div>
                 <label>

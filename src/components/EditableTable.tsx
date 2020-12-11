@@ -1,9 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { Form, Input, InputNumber, Popconfirm, Table } from 'antd'
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import {
+    Button,
+    Form,
+    Input,
+    InputNumber,
+    Popconfirm,
+    Space,
+    Table,
+} from 'antd'
 import React, { useState } from 'react'
 import { Item } from '../models/Item'
 import { Firebase } from '../services/Firebase'
+import { SearchOutlined } from '@ant-design/icons'
 
 interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
     editing: boolean
@@ -13,6 +23,85 @@ interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
     record: Item
     index: number
     children: React.ReactNode
+}
+
+const state = {
+    searchText: '',
+    searchedColumn: '',
+}
+
+let searchInput: Input | null
+
+const getColumnSearchProps = (dataIndex: string) => ({
+    filterDropdown: ({
+        //@ts-ignore
+        setSelectedKeys,
+        //@ts-ignore
+        selectedKeys,
+        //@ts-ignore
+        confirm,
+        //@ts-ignore
+        clearFilters,
+    }) => (
+        <div style={{ padding: 8 }}>
+            <Input
+                ref={(node) => {
+                    searchInput = node
+                }}
+                placeholder={`Search ${dataIndex}`}
+                value={selectedKeys[0]}
+                onChange={(e) =>
+                    setSelectedKeys(e.target.value ? [e.target.value] : [])
+                }
+                onPressEnter={() =>
+                    handleSearch(selectedKeys, confirm, dataIndex)
+                }
+                style={{ width: 188, marginBottom: 8, display: 'block' }}
+            />
+            <Space>
+                <Button
+                    type="primary"
+                    onClick={() =>
+                        handleSearch(selectedKeys, confirm, dataIndex)
+                    }
+                    icon={<SearchOutlined />}
+                    size="small"
+                    style={{ width: 90 }}
+                >
+                    Search
+                </Button>
+                <Button
+                    onClick={() => handleReset(clearFilters)}
+                    size="small"
+                    style={{ width: 90 }}
+                >
+                    Reset
+                </Button>
+            </Space>
+        </div>
+    ),
+    filterIcon: (filtered: boolean) => (
+        <SearchOutlined style={{ color: filtered ? '#1890ff' : undefined }} />
+    ),
+    onFilter: (value: any, record: any) =>
+        record[dataIndex]
+            ? record[dataIndex]
+                  .toString()
+                  .toLowerCase()
+                  .includes(value.toLowerCase())
+            : '',
+    render: (text: any) => text,
+})
+
+const handleSearch = (selectedKeys: any, confirm: any, dataIndex: any) => {
+    confirm()
+    state.searchText = selectedKeys[0]
+    state.searchedColumn = dataIndex
+}
+
+const handleReset = (clearFilters: any) => {
+    clearFilters()
+    state.searchText = ''
 }
 
 const EditableCell: React.FC<EditableCellProps> = ({
@@ -57,11 +146,11 @@ export const EditableTable = ({ items }: Props) => {
     const [form] = Form.useForm()
     const [editingKey, setEditingKey] = useState('')
 
-    const isEditing = (record: Item) => record.id === editingKey
+    const isEditing = (record: Item) => record.key === editingKey
 
     const edit = (record: Item) => {
         form.setFieldsValue({ ...record })
-        setEditingKey(record.id)
+        setEditingKey(record.key)
     }
 
     const cancel = () => {
@@ -93,8 +182,10 @@ export const EditableTable = ({ items }: Props) => {
         {
             title: 'name',
             dataIndex: 'name',
+            key: 'name',
             editable: true,
             inputType: 'string',
+            ...getColumnSearchProps('name'),
         },
         {
             title: 'price',
@@ -123,14 +214,18 @@ export const EditableTable = ({ items }: Props) => {
         {
             title: 'UPC',
             dataIndex: 'UPC',
+            key: 'UPC',
             editable: true,
             inputType: 'number',
+            ...getColumnSearchProps('UPC'),
         },
         {
             title: 'description',
             dataIndex: 'description',
+            key: 'description',
             editable: true,
             inputType: 'string',
+            ...getColumnSearchProps('description'),
         },
         {
             title: 'operation',
@@ -140,7 +235,7 @@ export const EditableTable = ({ items }: Props) => {
                 return editable ? (
                     <span>
                         <a
-                            onClick={() => save(record.id)}
+                            onClick={() => save(record.key)}
                             style={{ marginRight: 8 }}
                         >
                             Save

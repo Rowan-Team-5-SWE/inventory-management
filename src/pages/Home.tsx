@@ -18,7 +18,7 @@ export const Home = () => {
 
     const [items] = useCollectionData<Item>(
         Firebase.firestore().collection('items'),
-        { idField: 'id' }
+        { idField: 'key' }
     )
 
     const email: string = user?.email || 'blank'

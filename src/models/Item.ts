@@ -5,5 +5,5 @@ export type Item = {
     stock: number
     UPC: number
     description: string
-    id: string
+    key: string
 }

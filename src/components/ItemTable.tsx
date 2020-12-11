@@ -12,7 +12,7 @@ export const ItemTable = ({ items, loading }: Props) => {
     return (
         <Table
             tableLayout="auto"
-            rowKey={(item) => `${item.id}`}
+            rowKey={(item) => `${item.key}`}
             dataSource={items}
             loading={loading}
             bordered={true}

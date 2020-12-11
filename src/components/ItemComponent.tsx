@@ -20,7 +20,7 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
 
         const db = Firebase.firestore()
         const increment = Firebase.firestore.FieldValue.increment(1)
-        const itemRef = db.collection('items').doc(item.id)
+        const itemRef = db.collection('items').doc(item.key)
         itemRef.update({ stock: increment })
     }
 
@@ -29,7 +29,7 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
 
         const db = Firebase.firestore()
         const increment = Firebase.firestore.FieldValue.increment(-1)
-        const itemRef = db.collection('items').doc(item.id)
+        const itemRef = db.collection('items').doc(item.key)
         itemRef.update({ stock: increment })
     }
 
@@ -68,7 +68,7 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
                             console.log(
                                 Firebase.firestore()
                                     .collection('items')
-                                    .doc(item.id)
+                                    .doc(item.key)
                                     .delete()
                             )
                         }
@@ -95,7 +95,7 @@ export const ItemComponent = ({ item }: ItemComponentProps) => {
                                 .collection('cart')
                                 .doc(email)
                                 .collection('cartItems')
-                                .doc(item.id)
+                                .doc(item.key)
                                 .set({ quantity: 1 })
                         }}
                     >
