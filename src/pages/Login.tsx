@@ -41,6 +41,9 @@ export const Login = () => {
                     firebaseAuth={Firebase.auth()}
                 />
             )}
+            <button type="button" onClick={() => Firebase.auth().signOut()}>
+                Sign Out{' '}
+            </button>
         </div>
     )
 }
