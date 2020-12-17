@@ -4,29 +4,28 @@
 name: Node.js CI/CD
 
 on:
-  push:
-    branches: [ master ]
+    push:
+        branches: [master]
 
 jobs:
-  build:
+    build:
+        runs-on: ubuntu-latest
 
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - run: npm ci
-    - run: npm run build
-    - run: npm test
-    - name: Firebase Publish React
-      uses: mohammed-atif/firebase-publish-react@v1.0
-      with:
-        # Firebase token for CI
-        firebase-token: ${{ secrets.FIREBASE_TOKEN }}
-        # If true, then action will use its own firebase. If fase, reuse firebase from previous steps
-        install-firebase: true
-        # If true, build application before deploying. If false, use the build directory from previous steps
-        build-application: ./build
+        steps:
+            - uses: actions/checkout@v2
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 12.x
+            - run: npm ci
+            - run: npm run build
+            # - run: npm test
+            - name: Firebase Publish React
+              uses: mohammed-atif/firebase-publish-react@v1.0
+              with:
+                  # Firebase token for CI
+                  firebase-token: ${{ secrets.FIREBASE_TOKEN }}
+                  # If true, then action will use its own firebase. If fase, reuse firebase from previous steps
+                  install-firebase: true
+                  # If true, build application before deploying. If false, use the build directory from previous steps
+                  build-application: ./build
