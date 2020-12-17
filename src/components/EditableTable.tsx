@@ -12,6 +12,8 @@ import {
     Space,
     Table,
     Layout,
+    notification,
+    message,
 } from 'antd'
 import React, { useState } from 'react'
 import { Item } from '../models/Item'
@@ -339,25 +341,21 @@ export const EditableTable = ({ items }: Props) => {
                   render: (_: any, record: Item) => {
                       return isLoggedIn ? (
                           record.stock > 0 ? (
-                              <Popover
-                                  title={null}
-                                  content={<p>{record.name} added to cart</p>}
-                                  trigger="click"
-                                  placement="left"
+                              <a
+                                  onClick={() => {
+                                      Firebase.firestore()
+                                          .collection('cart')
+                                          .doc(email)
+                                          .collection('cartItems')
+                                          .doc(record.key)
+                                          .set({ quantity: 1 })
+                                      message.success(
+                                          `${record.name} added to cart`
+                                      )
+                                  }}
                               >
-                                  <a
-                                      onClick={() => {
-                                          Firebase.firestore()
-                                              .collection('cart')
-                                              .doc(email)
-                                              .collection('cartItems')
-                                              .doc(record.key)
-                                              .set({ quantity: 1 })
-                                      }}
-                                  >
-                                      Add to Cart
-                                  </a>
-                              </Popover>
+                                  Add to Cart
+                              </a>
                           ) : (
                               <></>
                           )
@@ -384,53 +382,21 @@ export const EditableTable = ({ items }: Props) => {
         }
     })
 
-    return isAdmin ? (
-        <span>
-            <Layout>
-                <Sider
-                    theme="light"
-                    defaultCollapsed={true}
-                    collapsible={true}
-                    collapsedWidth={0}
-                >
-                    <AddItemForm />
-                </Sider>
-                <Content style={{ paddingLeft: '1%' }}>
-                    <Form form={form} component={false}>
-                        <Table
-                            components={{
-                                body: {
-                                    cell: EditableCell,
-                                },
-                            }}
-                            bordered
-                            dataSource={items}
-                            columns={mergedColumns}
-                            pagination={{
-                                onChange: cancel,
-                            }}
-                        />
-                    </Form>
-                </Content>
-            </Layout>
-        </span>
-    ) : (
-        <span>
-            <Form form={form} component={false}>
-                <Table
-                    components={{
-                        body: {
-                            cell: EditableCell,
-                        },
-                    }}
-                    bordered
-                    dataSource={items}
-                    columns={mergedColumns}
-                    pagination={{
-                        onChange: cancel,
-                    }}
-                />
-            </Form>
-        </span>
+    return (
+        <Form form={form} component={false}>
+            <Table
+                components={{
+                    body: {
+                        cell: EditableCell,
+                    },
+                }}
+                bordered
+                dataSource={items}
+                columns={mergedColumns}
+                pagination={{
+                    onChange: cancel,
+                }}
+            />
+        </Form>
     )
 }

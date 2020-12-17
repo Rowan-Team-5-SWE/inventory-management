@@ -3,7 +3,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { StyledFirebaseAuth } from 'react-firebaseui'
 import { Firebase } from '../services/Firebase'
 
-export const Login = () => {
+export const LoginPage = () => {
     const [user] = useAuthState(Firebase.auth())
 
     useEffect(() => {
@@ -42,7 +42,7 @@ export const Login = () => {
                 />
             )}
             <button type="button" onClick={() => Firebase.auth().signOut()}>
-                Sign Out{' '}
+                Sign Out
             </button>
         </div>
     )
