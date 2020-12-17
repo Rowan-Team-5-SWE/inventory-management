@@ -27,19 +27,19 @@ export const NestedTable = () => {
 
     const expandedRowRender = (record: Order) => {
         const columns = [
-            { title: 'name', dataIndex: 'name', key: 'name' },
+            { title: 'Item', dataIndex: 'name', key: 'name' },
             {
-                title: 'description',
+                title: 'Description',
                 dataIndex: 'description',
                 key: 'description',
             },
             {
-                title: 'price',
+                title: 'Price',
                 dataIndex: 'price',
                 key: 'price',
             },
             {
-                title: 'quantity',
+                title: 'Quantity',
                 dataIndex: 'quantity',
                 key: 'quantity',
             },
@@ -57,9 +57,8 @@ export const NestedTable = () => {
     }
 
     const columns = [
-        { title: 'user', dataIndex: 'user', key: 'user' },
         {
-            title: 'time',
+            title: 'Date',
             dataIndex: 'time',
             key: 'time',
             sorter: (a: Order, b: Order) => {
@@ -67,8 +66,8 @@ export const NestedTable = () => {
             },
             defaultSortOrder: 'descend' as ListSort,
         },
-        { title: 'address', dataIndex: 'address', key: 'address' },
-        { title: 'status', dataIndex: 'status', key: 'status' },
+        { title: 'Address', dataIndex: 'address', key: 'address' },
+        { title: 'Status', dataIndex: 'status', key: 'status' },
     ]
 
     return (

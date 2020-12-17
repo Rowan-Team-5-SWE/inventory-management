@@ -46,24 +46,24 @@ export const NestedTableAll = () => {
 
     const expandedRowRender = (record: Order) => {
         const columns = [
-            { title: 'name', dataIndex: 'name', key: 'name' },
+            { title: 'Name', dataIndex: 'name', key: 'name' },
             {
-                title: 'description',
+                title: 'Description',
                 dataIndex: 'description',
                 key: 'description',
             },
             {
-                title: 'price',
+                title: 'Price',
                 dataIndex: 'price',
                 key: 'price',
             },
             {
-                title: 'quantity',
+                title: 'Quantity',
                 dataIndex: 'quantity',
                 key: 'quantity',
             },
             {
-                title: 'checklist',
+                title: 'Checklist',
                 dataindex: 'checklist',
                 render: (_: any, cartItem: CartItem) => {
                     console.log(record)
@@ -94,7 +94,7 @@ export const NestedTableAll = () => {
     }
 
     const columns = [
-        { title: 'user', dataIndex: 'user', key: 'user' },
+        { title: 'Customer', dataIndex: 'user', key: 'user' },
         {
             title: 'time',
             dataIndex: 'time',
@@ -104,9 +104,9 @@ export const NestedTableAll = () => {
             },
             defaultSortOrder: 'ascend' as ListSort,
         },
-        { title: 'address', dataIndex: 'address', key: 'address' },
+        { title: 'Address', dataIndex: 'address', key: 'address' },
         {
-            title: 'status',
+            title: 'Status',
             dataIndex: 'status',
             key: 'status',
             filters: [
@@ -124,12 +124,12 @@ export const NestedTableAll = () => {
             defaultFilteredValue: ['pending'],
         },
         {
-            title: 'employee',
+            title: 'Employee',
             dataIndex: 'employee',
             key: 'employee',
         },
         {
-            title: 'action',
+            title: 'Action',
             dataIndex: 'action',
             render: (_: any, order: Order) => {
                 let isWorkingOn: number

@@ -1,7 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-template-curly-in-string */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Form, Input, InputNumber, Button } from 'antd'
+import {
+    Form,
+    Input,
+    InputNumber,
+    Button,
+    Row,
+    Typography,
+    Col,
+    Space,
+} from 'antd'
 import React from 'react'
 import { Item } from '../models/Item'
 import { Firebase } from '../services/Firebase'
@@ -30,70 +39,76 @@ export const AddItemForm = () => {
     }
 
     return (
-        <span>
-            <Form
-                style={{ paddingLeft: '3%' }}
-                form={form}
-                layout="vertical"
-                name="nest-messages"
-                onFinish={onFinish}
-                onReset={onReset}
-            >
-                <Form.Item
-                    name={['name']}
-                    label="name"
-                    rules={[{ required: true }]}
+        <>
+            <Row>
+                <Typography.Title level={3}>Add Item</Typography.Title>
+            </Row>
+            <Row>
+                <Form
+                    style={{ paddingLeft: '3%' }}
+                    form={form}
+                    layout="vertical"
+                    name="nest-messages"
+                    onFinish={onFinish}
+                    onReset={onReset}
                 >
-                    <Input autoComplete="newpassword" />
-                </Form.Item>
-                <Form.Item
-                    name={['price']}
-                    label="price"
-                    rules={[{ required: true, type: 'number' }]}
-                >
-                    <InputNumber />
-                </Form.Item>
-                <Form.Item
-                    name={['cost']}
-                    label="cost"
-                    rules={[{ required: true, type: 'number', min: 0 }]}
-                >
-                    <InputNumber />
-                </Form.Item>
-                <Form.Item
-                    name={['UPC']}
-                    label="UPC"
-                    rules={[{ required: true, type: 'number', min: 0 }]}
-                >
-                    <InputNumber style={{ width: '100%' }} />
-                </Form.Item>
-                <Form.Item
-                    name={['description']}
-                    label="description"
-                    rules={[{ required: true }]}
-                >
-                    <Input.TextArea
-                        allowClear={true}
-                        style={{ width: '100%' }}
-                    />
-                </Form.Item>
-                <Form.Item
-                    name={['stock']}
-                    label="stock"
-                    rules={[{ required: true, type: 'number', min: 0 }]}
-                >
-                    <InputNumber />
-                </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        Add Item
-                    </Button>
-                    <span>&nbsp;&nbsp;&nbsp;</span>
-                    <Button htmlType="button" onClick={onReset}>
-                        Reset
-                    </Button>
-                </Form.Item>
-            </Form>
-        </span>
+                    <Form.Item
+                        name={['name']}
+                        label="Name"
+                        rules={[{ required: true }]}
+                    >
+                        <Input />
+                    </Form.Item>
+                    <Form.Item
+                        name={['price']}
+                        label="Price"
+                        rules={[{ required: true, type: 'number' }]}
+                    >
+                        <InputNumber />
+                    </Form.Item>
+                    <Form.Item
+                        name={['cost']}
+                        label="Cost"
+                        rules={[{ required: true, type: 'number', min: 0 }]}
+                    >
+                        <InputNumber />
+                    </Form.Item>
+                    <Form.Item
+                        name={['UPC']}
+                        label="UPC"
+                        rules={[{ required: true, type: 'number', min: 0 }]}
+                    >
+                        <InputNumber style={{ width: '100%' }} />
+                    </Form.Item>
+                    <Form.Item
+                        name={['description']}
+                        label="Description"
+                        rules={[{ required: true }]}
+                    >
+                        <Input.TextArea
+                            allowClear={true}
+                            style={{ width: '100%' }}
+                        />
+                    </Form.Item>
+                    <Form.Item
+                        name={['stock']}
+                        label="Stock"
+                        rules={[{ required: true, type: 'number', min: 0 }]}
+                    >
+                        <InputNumber />
+                    </Form.Item>
+                    <Form.Item>
+                        <Space>
+                            <Button type="primary" htmlType="submit">
+                                Add Item
+                            </Button>
+                            <Button htmlType="button" onClick={onReset}>
+                                Reset
+                            </Button>
+                        </Space>
+                    </Form.Item>
+                </Form>
+            </Row>
+        </>
     )
 }
