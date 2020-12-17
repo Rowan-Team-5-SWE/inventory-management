@@ -1,5 +1,5 @@
 import { Layout, Menu, Row, Typography } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useHistory } from 'react-router-dom'
 import { usePermissions } from '../hooks/usePermissions'
@@ -10,6 +10,16 @@ export const HeaderBar = () => {
     const history = useHistory()
     const { isLoggedIn, isAdmin } = usePermissions()
     const [user] = useAuthState(Firebase.auth())
+
+    useEffect(() => {
+        if (user == null) {
+            history.push('/login')
+        }
+    })
+
+    const logout = () => {
+        Firebase.auth().signOut()
+    }
 
     return (
         <Header>
@@ -29,23 +39,26 @@ export const HeaderBar = () => {
                     >
                         Inventory
                     </Menu.Item>
-                    <Menu.Item
-                        onClick={() => {
-                            history.push('/cart')
-                        }}
-                        key="2"
-                    >
-                        Cart
-                    </Menu.Item>
-
-                    <Menu.Item
-                        onClick={() => {
-                            history.push('/orders')
-                        }}
-                        key="7"
-                    >
-                        Orders
-                    </Menu.Item>
+                    {!isAdmin && (
+                        <Menu.Item
+                            onClick={() => {
+                                history.push('/cart')
+                            }}
+                            key="2"
+                        >
+                            Cart
+                        </Menu.Item>
+                    )}
+                    {!isAdmin && (
+                        <Menu.Item
+                            onClick={() => {
+                                history.push('/orders')
+                            }}
+                            key="7"
+                        >
+                            Orders
+                        </Menu.Item>
+                    )}
 
                     {isAdmin && (
                         <Menu.Item
@@ -69,10 +82,7 @@ export const HeaderBar = () => {
                     )}
                     {isLoggedIn && <Menu.Item key="4">{user?.email}</Menu.Item>}
                     {isLoggedIn && (
-                        <Menu.Item
-                            onClick={() => Firebase.auth().signOut()}
-                            key="5"
-                        >
+                        <Menu.Item onClick={logout} key="5">
                             Log Out
                         </Menu.Item>
                     )}

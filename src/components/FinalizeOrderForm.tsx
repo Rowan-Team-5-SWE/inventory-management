@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Form, Input, Button, Select } from 'antd'
+import { Form, Input, Button, Select, Space } from 'antd'
 import React from 'react'
 
 const { Option } = Select
@@ -50,7 +50,7 @@ export const FinalizeOrderForm = ({ finalizeButton }: Props) => {
                 label="Address"
                 rules={[{ required: true }]}
             >
-                <Input placeholder="Street Address" />
+                <Input />
             </Form.Item>
             <Form.Item name="city" label="City" rules={[{ required: true }]}>
                 <Input />
@@ -126,12 +126,14 @@ export const FinalizeOrderForm = ({ finalizeButton }: Props) => {
                 <Input />
             </Form.Item>
             <Form.Item {...tailLayout}>
-                <Button type="primary" htmlType="submit">
-                    Finalize Order
-                </Button>
-                <Button htmlType="button" onClick={onReset}>
-                    Clear Address
-                </Button>
+                <Space>
+                    <Button type="primary" htmlType="submit">
+                        Submit Order
+                    </Button>
+                    <Button htmlType="button" onClick={onReset}>
+                        Clear
+                    </Button>
+                </Space>
             </Form.Item>
         </Form>
     )

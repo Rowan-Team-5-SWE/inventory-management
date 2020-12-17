@@ -196,7 +196,7 @@ export const EditableTable = ({ items }: Props) => {
         ? [
               /** Employee inventory view  */
               {
-                  title: 'name',
+                  title: 'Name',
                   dataIndex: 'name',
                   key: 'name',
                   editable: true,
@@ -208,7 +208,7 @@ export const EditableTable = ({ items }: Props) => {
                   ...getColumnSearchProps('name'),
               },
               {
-                  title: 'price',
+                  title: 'Price',
                   dataIndex: 'price',
                   editable: true,
                   inputType: 'number',
@@ -217,7 +217,7 @@ export const EditableTable = ({ items }: Props) => {
                   },
               },
               {
-                  title: 'cost',
+                  title: 'Cost',
                   dataIndex: 'cost',
                   editable: true,
                   inputType: 'number',
@@ -232,7 +232,7 @@ export const EditableTable = ({ items }: Props) => {
                   ...getColumnSearchProps('UPC'),
               },
               {
-                  title: 'description',
+                  title: 'Description',
                   dataIndex: 'description',
                   key: 'description',
                   editable: true,
@@ -240,19 +240,19 @@ export const EditableTable = ({ items }: Props) => {
                   ...getColumnSearchProps('description'),
               },
               {
-                  title: 'total sold',
+                  title: 'Total Sold',
                   dataIndex: 'numSold',
                   editable: true,
                   inputType: 'number',
               },
               {
-                  title: 'stock',
+                  title: 'Stock',
                   dataIndex: 'stock',
                   editable: true,
                   inputType: 'number',
               },
               {
-                  title: 'operation',
+                  title: 'Operation',
                   dataIndex: 'operation',
                   render: (_: any, record: Item) => {
                       const editable = isEditing(record)
@@ -293,7 +293,7 @@ export const EditableTable = ({ items }: Props) => {
         : [
               /** Customer inventory view  */
               {
-                  title: 'name',
+                  title: 'Name',
                   dataIndex: 'name',
                   key: 'name',
                   editable: true,
@@ -305,7 +305,7 @@ export const EditableTable = ({ items }: Props) => {
                   ...getColumnSearchProps('name'),
               },
               {
-                  title: 'price',
+                  title: 'Price',
                   dataIndex: 'price',
                   editable: true,
                   inputType: 'number',
@@ -322,7 +322,7 @@ export const EditableTable = ({ items }: Props) => {
                   ...getColumnSearchProps('UPC'),
               },
               {
-                  title: 'description',
+                  title: 'Description',
                   dataIndex: 'description',
                   key: 'description',
                   editable: true,
@@ -330,13 +330,13 @@ export const EditableTable = ({ items }: Props) => {
                   ...getColumnSearchProps('description'),
               },
               {
-                  title: 'stock',
+                  title: 'Stock',
                   dataIndex: 'stock',
                   editable: true,
                   inputType: 'number',
               },
               {
-                  title: 'operation',
+                  title: 'Operation',
                   dataIndex: 'operation',
                   render: (_: any, record: Item) => {
                       return isLoggedIn ? (

@@ -41,7 +41,7 @@ export const AddItemForm = () => {
     return (
         <>
             <Row>
-                <Typography.Title>Add Item</Typography.Title>
+                <Typography.Title level={3}>Add Item</Typography.Title>
             </Row>
             <Row>
                 <Form
@@ -57,7 +57,7 @@ export const AddItemForm = () => {
                         label="Name"
                         rules={[{ required: true }]}
                     >
-                        <Input autoComplete="newpassword" />
+                        <Input />
                     </Form.Item>
                     <Form.Item
                         name={['price']}

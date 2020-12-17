@@ -4,10 +4,11 @@
 import React from 'react'
 import { Item } from '../models/Item'
 import { CartItem } from '../models/CartItem'
-import { Table } from 'antd'
+import { Table, Layout, Row, Typography } from 'antd'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Firebase } from '../services/Firebase'
 import { FinalizeOrderForm } from '../components/FinalizeOrderForm'
+const { Content, Sider } = Layout
 
 type Props = {
     items: Item[] | undefined
@@ -195,9 +196,20 @@ export const CartComponent = (props: Props) => {
     ]
 
     return (
-        <div>
-            <Table columns={columns} dataSource={props.cartItems}></Table>
-            <div
+        <>
+            <Content style={{ padding: '16px' }}>
+                <Table columns={columns} dataSource={props.cartItems} />
+            </Content>
+            <Sider theme="light" style={{ padding: '16px' }} width="300px">
+                <Row>
+                    <Typography.Title level={3}>Checkout</Typography.Title>
+                </Row>
+                <Row>
+                    <FinalizeOrderForm finalizeButton={finalizeButton} />
+                </Row>
+            </Sider>
+
+            {/* <div
                 style={{
                     paddingLeft: '5%',
                     width: '80%',
@@ -205,9 +217,7 @@ export const CartComponent = (props: Props) => {
                     display: 'flex',
                     justifyContent: 'center',
                 }}
-            >
-                <FinalizeOrderForm finalizeButton={finalizeButton} />
-            </div>
-        </div>
+            ></div> */}
+        </>
     )
 }

@@ -1,4 +1,3 @@
-import { Layout } from 'antd'
 import React from 'react'
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { useCollectionData } from 'react-firebase-hooks/firestore'
@@ -7,7 +6,6 @@ import { PageTemplate } from '../components/PageTemplate'
 import { CartItem } from '../models/CartItem'
 import { Item } from '../models/Item'
 import { Firebase } from '../services/Firebase'
-const { Content } = Layout
 
 export const CartPage = () => {
     const [user] = useAuthState(Firebase.auth())
@@ -28,9 +26,7 @@ export const CartPage = () => {
 
     return (
         <PageTemplate>
-            <Content style={{ padding: '16px' }}>
-                <CartComponent cartItems={cartItems} items={items} />
-            </Content>
+            <CartComponent cartItems={cartItems} items={items} />
         </PageTemplate>
     )
 }
