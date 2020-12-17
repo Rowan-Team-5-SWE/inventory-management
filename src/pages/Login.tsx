@@ -32,18 +32,26 @@ export const Login = () => {
         signInOptions: [Firebase.auth.GoogleAuthProvider.PROVIDER_ID],
     }
 
-    return (
-        <div>
+    return user ? (
+        <div
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexDirection: 'column',
+            }}
+        >
             {user?.email}
-            {!user && (
-                <StyledFirebaseAuth
-                    uiConfig={uiConfig}
-                    firebaseAuth={Firebase.auth()}
-                />
-            )}
             <button type="button" onClick={() => Firebase.auth().signOut()}>
                 Sign Out{' '}
             </button>
+        </div>
+    ) : (
+        <div>
+            <StyledFirebaseAuth
+                uiConfig={uiConfig}
+                firebaseAuth={Firebase.auth()}
+            />
         </div>
     )
 }

@@ -12,6 +12,7 @@ export const usePermissions = () => {
 
         if (email == null) {
             setLoggedIn(false)
+            setIsAdmin(false)
         } else {
             setLoggedIn(true)
             Firebase.firestore()
